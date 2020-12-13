@@ -1,0 +1,26 @@
+<annotation>
+  <folder>train</folder>
+  <filename>IMG_0842</filename>
+  <path>E:/Documents/python/a-PyTorch-Tutorial-to-Object-Detection/img/train_horehound_annotated/train/IMG_0842.JPG</path>
+  <source>
+    <database>Unknown</database>
+  </source>
+  <size>
+    <width>3091</width>
+    <height>2275</height>
+    <depth>3</depth>
+  </size>
+  <segmented>0</segmented>
+  <object>
+    <name>horehound</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>399</xmin>
+      <ymin>420</ymin>
+      <xmax>2218</xmax>
+      <ymax>2185</ymax>
+    </bndbox>
+  </object>
+</annotation>

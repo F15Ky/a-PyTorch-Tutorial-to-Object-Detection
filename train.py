@@ -19,7 +19,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 checkpoint = None  # path to model checkpoint, None if none
 batch_size = 8  # batch size
 iterations = 120000  # number of iterations to train
-workers = 4  # number of workers for loading data in the DataLoader
+workers = 8  # number of workers for loading data in the DataLoader
 print_freq = 200  # print training status every __ batches
 lr = 1e-3  # learning rate
 decay_lr_at = [80000, 100000]  # decay learning rate after these many iterations
@@ -106,6 +106,8 @@ def train(train_loader, model, criterion, optimizer, epoch):
     :param optimizer: optimizer
     :param epoch: epoch number
     """
+    device = 'cuda'
+    model = model.to(device)
     model.train()  # training mode enables dropout
 
     batch_time = AverageMeter()  # forward prop. + back prop. time
@@ -113,6 +115,7 @@ def train(train_loader, model, criterion, optimizer, epoch):
     losses = AverageMeter()  # loss
 
     start = time.time()
+
 
     # Batches
     for i, (images, boxes, labels, _) in enumerate(train_loader):
