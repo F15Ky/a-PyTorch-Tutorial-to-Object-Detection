@@ -1,0 +1,26 @@
+<annotation>
+  <folder>LThistle</folder>
+  <filename>12W</filename>
+  <path>E:/Documents/python/a-PyTorch-Tutorial-to-Object-Detection/img/LThistle/12W.jpg</path>
+  <source>
+    <database>Unknown</database>
+  </source>
+  <size>
+    <width>2000</width>
+    <height>1500</height>
+    <depth>3</depth>
+  </size>
+  <segmented>0</segmented>
+  <object>
+    <name>thistle</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>1722</xmin>
+      <ymin>523</ymin>
+      <xmax>1991</xmax>
+      <ymax>825</ymax>
+    </bndbox>
+  </object>
+</annotation>
