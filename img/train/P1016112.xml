@@ -1,0 +1,26 @@
+<annotation>
+  <folder>train</folder>
+  <filename>P1016112</filename>
+  <path>E:/Documents/python/a-PyTorch-Tutorial-to-Object-Detection/img/train/P1016112.JPG</path>
+  <source>
+    <database>Unknown</database>
+  </source>
+  <size>
+    <width>3968</width>
+    <height>2976</height>
+    <depth>3</depth>
+  </size>
+  <segmented>0</segmented>
+  <object>
+    <name>tussock</name>
+    <pose>Unspecified</pose>
+    <truncated>0</truncated>
+    <difficult>0</difficult>
+    <bndbox>
+      <xmin>1601</xmin>
+      <ymin>1081</ymin>
+      <xmax>2382</xmax>
+      <ymax>1628</ymax>
+    </bndbox>
+  </object>
+</annotation>
