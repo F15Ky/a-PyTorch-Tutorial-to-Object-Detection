@@ -5,6 +5,7 @@ import random
 import xml.etree.ElementTree as ET
 import torchvision.transforms.functional as FT
 import glob
+import preprocessing
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -74,10 +75,6 @@ def create_data_lists(train_path, output_folder):
         ts_imgs = glob.glob(path+"/P*.JPG")
         ts_ids = ["".join([ii for ii in i.split("/")[-1] if ii in "0123456789"]) for i in ts_imgs]
 
-        print(path)
-        print(ts_imgs)
-        print(ts_ids)
-
         for id in th_ids:
             # Parse annotation's XML file
             try:
@@ -86,7 +83,8 @@ def create_data_lists(train_path, output_folder):
                     continue
                 n_objects += len(objects)
                 train_objects.append(objects)
-                train_images.append(str(path) + "/" + id + "W.jpg")
+                train_preprocess_path = preprocess_image(str(path) + "/" + id + "W.jpg")
+                train_images.append(train_preprocess_path)
             except:
                 print("Couldnt annotate thistle image id:" + str(id))
 
@@ -98,7 +96,8 @@ def create_data_lists(train_path, output_folder):
                     continue
                 n_objects += len(objects)
                 train_objects.append(objects)
-                train_images.append(str(path) + "/IMG_" + id + ".JPG")
+                train_preprocess_path = preprocess_image(str(path) + "/" + id + "W.jpg")
+                train_images.append(train_preprocess_path)
             except:
                 print("Couldnt annotate horehound image id:" + str(id))
 
@@ -111,7 +110,8 @@ def create_data_lists(train_path, output_folder):
                     continue
                 n_objects += len(objects)
                 train_objects.append(objects)
-                train_images.append(str(path) + "/P" + id + ".JPG")
+                train_preprocess_path = preprocess_image(str(path) + "/" + id + "W.jpg")
+                train_images.append(train_preprocess_path)
             except:
                 print("Couldnt annotate tussock image id:" + str(id))
 
