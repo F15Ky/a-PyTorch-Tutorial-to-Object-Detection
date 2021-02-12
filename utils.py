@@ -9,7 +9,7 @@ import glob
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Label map
-voc_labels = ('horehound',)
+voc_labels = ('horehound','thistle', 'tussock')
 label_map = {k: v + 1 for v, k in enumerate(voc_labels)}
 label_map['background'] = 0
 rev_label_map = {v: k for k, v in label_map.items()}  # Inverse mapping
@@ -42,6 +42,7 @@ def parse_annotation(annotation_path):
 
         boxes.append([xmin, ymin, xmax, ymax])
         labels.append(label_map[label])
+        # print(label_map[label])
         # difficulties.append(difficult)
 
     return {'boxes': boxes, 'labels': labels, 'difficulties': difficulties}
@@ -64,20 +65,56 @@ def create_data_lists(train_path, output_folder):
     # Training data
     for path in [train_path]:
 
-        imgs = glob.glob(path+ "\*.JPG")
-        ids = ["".join([ii for ii in i if ii in "0123456789"]) for i in imgs]
+        th_imgs = glob.glob(path+"/*W.jpg")
+        th_ids = ["".join([ii for ii in i.split("/")[-1] if ii in "0123456789"]) for i in th_imgs]
 
-        for id in ids:
+        h_imgs = glob.glob(path+"/IMG_*.JPG")
+        h_ids = ["".join([ii for ii in i.split("/")[-1] if ii in "0123456789"]) for i in h_imgs]
+
+        ts_imgs = glob.glob(path+"/P*.JPG")
+        ts_ids = ["".join([ii for ii in i.split("/")[-1] if ii in "0123456789"]) for i in ts_imgs]
+
+        print(path)
+        print(ts_imgs)
+        print(ts_ids)
+
+        for id in th_ids:
             # Parse annotation's XML file
             try:
-                objects = parse_annotation(str(path) + "\IMG_" + id + ".xml")
+                objects = parse_annotation(str(path) + "/" + id + "W.xml")
                 if len(objects['boxes']) == 0:
                     continue
                 n_objects += len(objects)
                 train_objects.append(objects)
-                train_images.append(str(path) + "\IMG_" + id + ".JPG")
+                train_images.append(str(path) + "/" + id + "W.jpg")
             except:
-                print("Couldnt annotate image id:" + str(id))
+                print("Couldnt annotate thistle image id:" + str(id))
+
+        for id in h_ids:
+            # Parse annotation's XML file
+            try:
+                objects = parse_annotation(str(path) + "/IMG_" + id + ".xml")
+                if len(objects['boxes']) == 0:
+                    continue
+                n_objects += len(objects)
+                train_objects.append(objects)
+                train_images.append(str(path) + "/IMG_" + id + ".JPG")
+            except:
+                print("Couldnt annotate horehound image id:" + str(id))
+
+
+        for id in ts_ids:
+            # Parse annotation's XML file
+            try:
+                objects = parse_annotation(str(path) + "/P" + id + ".xml")
+                if len(objects['boxes']) == 0:
+                    continue
+                n_objects += len(objects)
+                train_objects.append(objects)
+                train_images.append(str(path) + "/P" + id + ".JPG")
+            except:
+                print("Couldnt annotate tussock image id:" + str(id))
+
 
     assert len(train_objects) == len(train_images)
 
